@@ -1,5 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit"
-import mainReducer from "../reducers"
+import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import companyReducer from "../reducers/companyReducer"
+import favoritesRseducer from "../reducers/favoritesReducer"
+import mainReducer from "../reducers/mainReducer"
 
 export const initialState = {
   main: {
@@ -15,8 +17,13 @@ export const initialState = {
   },
 }
 
+const bigReducer = combineReducers({
+  main: mainReducer,
+  favorites: favoritesRseducer,
+  company: companyReducer,
+})
 const store = configureStore({
-  reducer: mainReducer,
+  reducer: bigReducer,
 })
 
 export default store

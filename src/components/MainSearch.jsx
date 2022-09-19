@@ -19,7 +19,6 @@ const MainSearch = () => {
   // }
 
   const dispatch = useDispatch()
-  const baseEndpoint = "https://strive-jobs-api.herokuapp.com/jobs?search="
 
   const handleChange = (e) => {
     dispatch(setQueryAction(e.target.value))
@@ -37,17 +36,7 @@ const MainSearch = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    try {
-      const response = await fetch(baseEndpoint + query + "&limit=20")
-      if (response.ok) {
-        const { data } = await response.json()
-        dispatch(getJobsAction(data))
-      } else {
-        alert("Error fetching results")
-      }
-    } catch (error) {
-      console.log(error)
-    }
+    dispatch(getJobsAction(query))
   }
 
   return (
