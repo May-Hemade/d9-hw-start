@@ -48,12 +48,12 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-// I want to create the store
+// // I want to create the store
 
-const store = configureStore({
-  reducer: persistedReducer,
-})
+// const store = configureStore({
+//   reducer: persistedReducer,
+// })
 
-export let persistor = persistStore(store)
+// export let persistor = persistStore(store)
 
-export default store
+// export default store
