@@ -7,10 +7,9 @@ import { addFavorites, removeFavorites } from "../redux/actions"
 import { useSelector } from "react-redux"
 
 const Job = ({ data }) => {
-  console.log("data", data)
   const dispatch = useDispatch()
   const favorites = useSelector((state) => state.favorites.jobs)
-  console.log(favorites)
+
   return (
     <Row
       className="mx-0 mt-3 p-3"

@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap"
 import Job from "./Job"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { setJobs } from "../redux/actions"
+import { getJobs, setJobs } from "../redux/actions"
 
 const CompanySearchResults = () => {
   // const [jobs, setJobs] = useState([])
@@ -12,28 +12,28 @@ const CompanySearchResults = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search="
+  // const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search="
 
   useEffect(() => {
-    getJobs()
+    dispatch(getJobs(params.companyName))
   }, [])
 
-  const getJobs = async () => {
-    try {
-      const response = await fetch(baseEndpoint + params.companyName)
-      if (response.ok) {
-        const result = await response.json()
+  // const getJobs = async () => {
+  //   try {
+  //     const response = await fetch(baseEndpoint + params.companyName)
+  //     if (response.ok) {
+  //       const result = await response.json()
 
-        console.log("search ok", result.data)
-        dispatch(setJobs(result.data))
-        console.log("iam the heloow", result.data)
-      } else {
-        alert("Error fetching results")
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //       console.log("search ok", result.data)
+  //       dispatch(setJobs(result.data))
+  //       console.log("iam the heloow", result.data)
+  //     } else {
+  //       alert("Error fetching results")
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   return (
     <Container>
