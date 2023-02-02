@@ -1,6 +1,24 @@
-// import { ADD_FAVORITES, DELETE_FAVORITES } from "../actions"
+import { createSlice } from "@reduxjs/toolkit"
 
-// export const favoirtesReducer = (state = [], action) => {
+const initialState = { jobs: [] }
+
+export const favoritesSlice = createSlice({
+  name: "favorite",
+  initialState,
+  reducers: {
+    addFavorite: (state) => {
+      state.jobs.push(action.payload)
+    },
+    deleteFavorites: (state) => {
+      state.jobs = state.jobs.filter((job) => job._id !== action.payload._id)
+    },
+  },
+})
+
+export const { addFavorite, deleteFavorites } = favoritesSlice.actions
+
+export default favoritesSlice.reducer
+
 //   switch (action.type) {
 //     case ADD_FAVORITES:
 //       return {

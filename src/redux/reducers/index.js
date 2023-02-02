@@ -1,8 +1,8 @@
 import { combineReducers, createStore } from "redux"
-import favoirtesReducer from "../reducers/favorites"
+import favoriteReducer from "../reducers/favoritesSlice"
 import { mainReducer } from "./main"
 
-const rootReducer = combineReducers({
-  favoirtesReducer,
+export const rootReducer = combineReducers({
+  favoriteReducer,
   mainReducer,
 })
