@@ -1,7 +1,8 @@
 import { Container, Row, Col, Form, Alert, Spinner } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { searchJobs, setQuery } from "../redux/actions"
+
+import { searchJobs, setQuery } from "../redux/reducers/mainSlice"
 
 import Job from "./Job"
 

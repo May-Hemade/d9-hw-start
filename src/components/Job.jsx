@@ -1,10 +1,11 @@
 import { Row, Col } from "react-bootstrap"
-import { BalloonHeart, BalloonHeartFill } from "react-bootstrap-icons"
+import { BalloonHeart, BalloonHeartFill, Search } from "react-bootstrap-icons"
 import { Link } from "react-router-dom"
 
 import { useDispatch } from "react-redux"
-import { addFavorites, removeFavorites } from "../redux/actions"
+
 import { useSelector } from "react-redux"
+import { addFavorite, deleteFavorites } from "../redux/reducers/favoritesSlice"
 
 const Job = ({ data }) => {
   const dispatch = useDispatch()
@@ -18,6 +19,7 @@ const Job = ({ data }) => {
       <Col xs={3}>
         <Link to={`/${data.company_name}`}>{data.company_name}</Link>
       </Col>
+      <Search></Search>
       <Col xs={7}>
         <a href={data.url} target="_blank" rel="noreferrer">
           {data.title}
@@ -25,11 +27,11 @@ const Job = ({ data }) => {
       </Col>
       <Col xs={2}>
         {favorites.some((job) => data._id === job._id) ? (
-          <span onClick={() => dispatch(removeFavorites(data))}>
+          <span onClick={() => dispatch(deleteFavorites(data))}>
             <BalloonHeartFill></BalloonHeartFill>
           </span>
         ) : (
-          <span onClick={() => dispatch(addFavorites(data))}>
+          <span onClick={() => dispatch(addFavorite(data))}>
             <BalloonHeart></BalloonHeart>
           </span>
         )}

@@ -3,11 +3,10 @@ import { Container, Row, Col } from "react-bootstrap"
 import Job from "./Job"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { getJobs, setJobs } from "../redux/actions"
+import { getCompanyJobs } from "../redux/reducers/companySlice"
 
 const CompanySearchResults = () => {
-  // const [jobs, setJobs] = useState([])
-  const jobs = useSelector((state) => state.search.jobs)
+  const jobs = useSelector((state) => state.company.jobs)
   console.log("this is jobs", jobs)
   const dispatch = useDispatch()
   const params = useParams()
@@ -15,7 +14,7 @@ const CompanySearchResults = () => {
   // const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search="
 
   useEffect(() => {
-    dispatch(getJobs(params.companyName))
+    dispatch(getCompanyJobs(params.companyName))
   }, [])
 
   // const getJobs = async () => {

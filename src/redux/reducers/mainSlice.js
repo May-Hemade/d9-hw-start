@@ -1,58 +1,60 @@
-import {
-  ADD_FAVORITES,
-  DELETE_FAVORITES,
-  SET_JOBS,
-  SET_MAIN_JOBS,
-  SET_QUERY,
-} from "../actions"
-import { initialState } from "../store"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search="
+
+export const searchJobs = createAsyncThunk(
+  "main/searchJobs",
+  async (arg, { getState, rejectWithValue, dispatch }) => {
+    try {
+      dispatch(setLoadMain(true))
+      dispatch(setErrorMain(false))
+      const query = getState().main.query
+      let response = await fetch(baseEndpoint + query + "&limit=20")
+      if (response.ok) {
+        let data = await response.json()
+
+        return data.data
+      } else {
+        return rejectWithValue("error happened fetching ")
+      }
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  }
+)
+
+const initialState = {
+  query: "",
+  jobs: [],
+  error: false,
+  load: false,
+}
 
 // how I want to do it what actions I want to do on the store applying the action
-export const mainReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_JOBS:
-      return {
-        ...state,
-        search: {
-          ...state.search,
-          jobs: [...action.payload],
-        },
-      }
-    case SET_QUERY:
-      return {
-        ...state,
-        main: {
-          ...state.main,
-          query: [...action.payload],
-        },
-      }
-    case SET_MAIN_JOBS:
-      return {
-        ...state,
-        main: {
-          ...state.main,
-          jobs: [...action.payload],
-        },
-      }
-    case ADD_FAVORITES:
-      return {
-        ...state,
-        favorites: {
-          ...state.favorites,
-          jobs: [...state.favorites.jobs, action.payload],
-        },
-      }
-    case DELETE_FAVORITES:
-      return {
-        ...state,
-        favorites: {
-          ...state.favorites,
-          jobs: state.favorites.jobs.filter(
-            (job) => job._id !== action.payload._id
-          ),
-        },
-      }
-    default:
-      return state
-  }
-}
+const mainSlice = createSlice({
+  name: "main",
+  initialState,
+  reducers: {
+    setQuery: (state, action) => {
+      state.query = action.payload
+    },
+    setErrorMain: (state, action) => {
+      state.error = action.payload
+    },
+    setLoadMain: (state, action) => {
+      state.load = action.payload
+    },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(searchJobs.fulfilled, (state, action) => {
+      state.jobs = action.payload
+      state.error = false
+      state.load = false
+    })
+  },
+})
+
+export const { setQuery, setMainJob, setErrorMain, setLoadMain } =
+  mainSlice.actions
+
+export default mainSlice.reducer
