@@ -12,14 +12,6 @@ import { initialState } from "../store"
 // how I want to do it what actions I want to do on the store applying the action
 export const mainReducer = (state = initialState.main, action) => {
   switch (action.type) {
-    //   case SET_JOBS:
-    //     return {
-    //       ...state,
-    //       search: {
-    //         ...state.search,
-    //         jobs: [...action.payload],
-    //       },
-    //     }
     case SET_QUERY:
       return {
         ...state,
@@ -31,24 +23,7 @@ export const mainReducer = (state = initialState.main, action) => {
 
         jobs: [...action.payload],
       }
-    // case ADD_FAVORITES:
-    //   return {
-    //     ...state,
-    //     favorites: {
-    //       ...state.favorites,
-    //       jobs: [...state.favorites.jobs, action.payload],
-    //     },
-    //   }
-    // case DELETE_FAVORITES:
-    //   return {
-    //     ...state,
-    //     favorites: {
-    //       ...state.favorites,
-    //       jobs: state.favorites.jobs.filter(
-    //         (job) => job._id !== action.payload._id
-    //       ),
-    //     },
-    //   }
+
     case SET_ERROR_MAIN:
       return {
         ...state,

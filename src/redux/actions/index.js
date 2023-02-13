@@ -69,25 +69,23 @@ export const getJobs = (companyName) => {
 }
 
 export const searchJobs = () => {
-  return (dispatch, getState) => {
-    setTimeout(async () => {
-      try {
-        dispatch(setLoadMain(true))
-        dispatch(setErrorMain(false))
-        const query = getState().main.query
-        const response = await fetch(baseEndpoint + query + "&limit=20")
-        if (response.ok) {
-          dispatch(setLoadMain(false))
-          const { data } = await response.json()
-          dispatch(setMainJobs(data))
-        } else {
-          dispatch(setErrorMain(true))
-          alert("Error fetching results")
-        }
-      } catch (error) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(setLoadMain(true))
+      dispatch(setErrorMain(false))
+      const query = getState().main.query
+      const response = await fetch(baseEndpoint + query + "&limit=20")
+      if (response.ok) {
+        dispatch(setLoadMain(false))
+        const { data } = await response.json()
+        dispatch(setMainJobs(data))
+      } else {
         dispatch(setErrorMain(true))
-        console.log(error)
+        alert("Error fetching results")
       }
-    }, 1000)
+    } catch (error) {
+      dispatch(setErrorMain(true))
+      console.log(error)
+    }
   }
 }
