@@ -23,7 +23,7 @@ export const mainReducer = (state = initialState, action) => {
         ...state,
         main: {
           ...state.main,
-          query: [...action.payload],
+          query: action.payload,
         },
       }
     case SET_MAIN_JOBS:
