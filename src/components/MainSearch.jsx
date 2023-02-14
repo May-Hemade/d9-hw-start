@@ -1,7 +1,14 @@
+import { useEffect } from "react"
 import { Container, Row, Col, Form, Alert, Spinner } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { searchJobs, setQuery } from "../redux/actions"
+import {
+  getJobs,
+  mainSearch,
+  searchJobs,
+  setMainJobs,
+  setQuery,
+} from "../redux/actions"
 
 import Job from "./Job"
 
@@ -23,7 +30,7 @@ const MainSearch = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    dispatch(searchJobs())
+    dispatch(mainSearch())
 
     // try {
     //   const response = await fetch(baseEndpoint + query + "&limit=20")
@@ -37,6 +44,9 @@ const MainSearch = () => {
     //   console.log(error)
     // }
   }
+  useEffect(() => {
+    dispatch(setMainJobs([]))
+  }, [])
 
   return (
     <Container>

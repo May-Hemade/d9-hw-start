@@ -15,6 +15,8 @@ import { searchReducer } from "../reducers/searchReducer"
 export const initialState = {
   search: {
     jobs: [],
+    error: false,
+    load: false,
   },
   favorites: {
     jobs: [],
@@ -52,6 +54,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
 export let persistor = persistStore(store)

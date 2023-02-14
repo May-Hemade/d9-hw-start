@@ -35,6 +35,7 @@ export const mainReducer = (state = initialState.main, action) => {
         ...state,
         load: action.payload,
       }
+
     default:
       return state
   }
